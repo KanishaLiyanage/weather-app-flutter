@@ -11,10 +11,10 @@ class AlertBox extends StatelessWidget {
   Widget build(BuildContext context) {
     String condition = " ";
 
-    if (weatherCondition == "Dark Clouds") {
+    if (weatherCondition == "Mostly Sunny") {
       print(weatherCondition +
-          " - It\'s better to take an umbrella, cover from rain.");
-      condition = "It\'s better to take an umbrella, cover from rain.";
+          " - It\'s better to take an umbrella, cover from Sun.");
+      condition = "It\'s better to take an umbrella, cover from Sun.";
     }
 
     return Container(
@@ -23,7 +23,7 @@ class AlertBox extends StatelessWidget {
       margin: EdgeInsets.all(10),
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Colors.blueAccent,
+        color: Colors.red,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(

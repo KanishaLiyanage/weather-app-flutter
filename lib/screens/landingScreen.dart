@@ -15,7 +15,7 @@ class LandingScreen extends StatelessWidget {
               height: 200.0,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/app-icon.png'),
+                  image: AssetImage('assets/icons/app-icon.png'),
                 ),
               ),
             ),
@@ -24,7 +24,7 @@ class LandingScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushNamed('/home');
+          Navigator.of(context).pushNamed('/signin');
         },
         child: Icon(
           Icons.arrow_forward_ios_rounded,

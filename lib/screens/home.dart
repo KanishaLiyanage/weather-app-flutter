@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 
 import '../widgets/refreshBtn.dart';
 import '../widgets/weatherCard.dart';
@@ -12,39 +13,49 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String condition = "Dark Clouds";
   String city = "Colombo";
+  String day = "Today";
+  String time = "Noon";
   String temp = "32";
+  String condition = "Mostly Sunny";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Home',
-        ),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          WeatherCard(condition: condition, city: city, temp: temp),
-          Container(
-            height: 350,
-            padding: EdgeInsets.symmetric(
-              vertical: 20,
-              horizontal: 20,
-            ),
-            child: ListView.builder(
-              itemBuilder: (ctx, index) {
-                return AlertBox(
-                  weatherCondition: condition,
-                );
-              },
-              itemCount: 6,
-            ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            top: 80,
           ),
-          RefreshButton(),
-        ],
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              WeatherStatus(
+                city: city,
+                day: day,
+                time: time,
+                temp: temp,
+                condition: condition,
+              ),
+              Container(
+                height: 350,
+                padding: EdgeInsets.symmetric(
+                  vertical: 20,
+                  horizontal: 20,
+                ),
+                child: ListView.builder(
+                  itemBuilder: (ctx, index) {
+                    return AlertBox(
+                      weatherCondition: condition,
+                    );
+                  },
+                  itemCount: 6,
+                ),
+              ),
+              RefreshButton(),
+            ],
+          ),
+        ),
       ),
     );
   }
