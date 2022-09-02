@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 
 class WeatherStatus extends StatelessWidget {
   const WeatherStatus({
     Key? key,
     required this.city,
-    required this.day,
-    required this.time,
+    required this.dayTime,
     required this.temp,
     required this.condition,
   }) : super(key: key);
 
   final String city;
-  final String day;
-  final String time;
+  final String dayTime;
   final String temp;
   final String condition;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
           Text(
@@ -30,17 +31,12 @@ class WeatherStatus extends StatelessWidget {
             ),
           ),
           SizedBox(height: 25.0),
-          Text(
-            day,
-            style: TextStyle(
-                fontSize: 18.0, color: Colors.red, fontWeight: FontWeight.w300),
-          ),
           SizedBox(height: 6.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                time,
+                dayTime,
                 style: TextStyle(
                     fontSize: 18.0,
                     color: Colors.red,

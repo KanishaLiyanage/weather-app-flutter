@@ -25,7 +25,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       try {
         var postData = await dio.post('$url/signup', data: userDetails);
         print(postData);
-        Navigator.of(context).pushNamed('/signin');
+        Navigator.of(context).pushNamed('/home');
       } catch (e) {
         print(e);
         print("===");
