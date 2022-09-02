@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
+import 'home.dart';
+
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
 
@@ -10,8 +12,8 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   String username = "";
+  String useremail = "";
   String password = "";
-  String token = "";
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -19,13 +21,21 @@ class _SignInScreenState extends State<SignInScreen> {
     Dio dio = new Dio();
     const url = "https://weather-flutter-app-rest-api.herokuapp.com";
 
-    Future<void> postData(uname, pw) async {
+    Future<void> postData(uname, uemail, pw) async {
       var userDetails = {"username": uname, "password": pw};
       print(userDetails);
       try {
         var postData = await dio.post('$url/users/signin', data: userDetails);
         print(postData);
-        Navigator.of(context).pushNamed('/home');
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => HomeScreen(
+              userName: uname,
+              userEmail: uemail,
+            ),
+          ),
+        );
+        //Navigator.of(context).pushNamed('/home');
       } catch (e) {
         print(e);
         print("Invalid username or password!");
@@ -101,6 +111,41 @@ class _SignInScreenState extends State<SignInScreen> {
                             ),
                           ),
                           const SizedBox(height: 30),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.all(18),
+                                prefixIcon: Icon(Icons.mail_outline_rounded),
+                                hintText: 'Enter your email',
+                                labelText: 'Email',
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                    color: Colors.blue,
+                                  ),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                    color: Colors.blue,
+                                  ),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                              ),
+                              // The validator receives the text that the user has entered.
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter email';
+                                }
+                                return null;
+                              },
+                              onSaved: (value) {
+                                useremail = value!;
+                              },
+                            ),
+                          ),
+                          const SizedBox(height: 30),
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 20),
                             child: TextFormField(
@@ -144,7 +189,8 @@ class _SignInScreenState extends State<SignInScreen> {
                                   _formKey.currentState!.save(),
                                   print(username),
                                   print(password),
-                                  postData(username, password),
+                                  print(useremail),
+                                  postData(username, useremail, password),
                                 }
                             },
                             child: Container(

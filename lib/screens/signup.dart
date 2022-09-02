@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:weather_app/screens/home.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -25,7 +26,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
       try {
         var postData = await dio.post('$url/signup', data: userDetails);
         print(postData);
-        Navigator.of(context).pushNamed('/home');
+        // Navigator.of(context).pushNamed('/home');
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => HomeScreen(
+              userName: uname,
+              userEmail: uemail,
+            ),
+          ),
+        );
       } catch (e) {
         print(e);
         print("===");
