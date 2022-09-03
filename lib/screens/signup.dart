@@ -25,19 +25,41 @@ class _SignUpScreenState extends State<SignUpScreen> {
       print(userDetails);
       try {
         var postData = await dio.post('$url/signup', data: userDetails);
-        print(postData);
-        // Navigator.of(context).pushNamed('/home');
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => HomeScreen(
-              userName: uname,
-              userEmail: uemail,
+        if (postData.statusCode == 201) {
+          print(postData);
+          // Navigator.of(context).pushNamed('/home');
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => HomeScreen(
+                userName: uname,
+                userEmail: uemail,
+              ),
             ),
-          ),
-        );
+          );
+          final snackBar = SnackBar(
+            content: const Text(
+                'Account created successfuly and user authenticated.'),
+            backgroundColor: (Colors.blue),
+            action: SnackBarAction(
+              label: 'dismiss',
+              onPressed: () {},
+              textColor: Colors.white,
+            ),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
       } catch (e) {
         print(e);
-        print("===");
+        final snackBar = SnackBar(
+          content: const Text('Failed create account, try again!'),
+          backgroundColor: (Colors.red),
+          action: SnackBarAction(
+            label: 'dismiss',
+            onPressed: () {},
+            textColor: Colors.white,
+          ),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
+import '../screens/landingScreen.dart';
 import '../widgets/weatherCard.dart';
 import '../widgets/alertBox.dart';
 
@@ -46,11 +47,68 @@ class _HomeScreenState extends State<HomeScreen> {
           // print(temp);
           // print(condition);
           // print(dayTime);
+          final snackBar = SnackBar(
+            content: const Text('Weather updated!'),
+            backgroundColor: (Colors.blue),
+            action: SnackBarAction(
+              label: 'dismiss',
+              onPressed: () {},
+              textColor: Colors.white,
+            ),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
         });
       }
     } catch (e) {
       print(e);
       print("There is an error in fetching data.");
+      final snackBar = SnackBar(
+        content: const Text('There is an error in fetching weather data.'),
+        backgroundColor: (Colors.red),
+        action: SnackBarAction(
+          label: 'dismiss',
+          onPressed: () {},
+          textColor: Colors.white,
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+
+  Future<void> logout() async {
+    try {
+      var response = await dio.get('$url/users/logout');
+      //Navigator.of(context).pushNamed('/landingscreen');
+      if (response.statusCode == 200) {
+        // await Navigator.of(context).pushNamed('/landingscreen');
+        await Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const LandingScreen()),
+        );
+        final snackBar = SnackBar(
+          content: const Text('Successfuly logged out!'),
+          backgroundColor: (Colors.red),
+          action: SnackBarAction(
+            label: 'dismiss',
+            onPressed: () {},
+            textColor: Colors.white,
+          ),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+    } catch (e) {
+      print(e);
+      print("There is an error in logout.");
+      final snackBar = SnackBar(
+        content: const Text('There is an error in logout.'),
+        backgroundColor: (Colors.red),
+        action: SnackBarAction(
+          label: 'dismiss',
+          onPressed: () {},
+          textColor: Colors.white,
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
 
@@ -156,7 +214,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontWeight: FontWeight.w300,
                     ),
                   ),
-                  onTap: () {},
+                  onTap: logout,
                 ),
               ],
             ),

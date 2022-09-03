@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:weather_app/screens/home.dart';
 import 'package:weather_app/screens/landingScreen.dart';
 import 'package:weather_app/screens/signin.dart';
 import 'package:weather_app/screens/signup.dart';
@@ -17,9 +16,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: LandingScreen(),
       routes: {
-        //'/home': (context) => const HomeScreen(),
         '/signin': (context) => const SignInScreen(),
         '/signup': (context) => const SignUpScreen(),
+        '/landingscreen': (context) => const LandingScreen(),
       },
     );
   }

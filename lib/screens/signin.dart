@@ -16,16 +16,15 @@ class _SignInScreenState extends State<SignInScreen> {
   String password = "";
   final _formKey = GlobalKey<FormState>();
 
-  @override
-  Widget build(BuildContext context) {
-    Dio dio = new Dio();
-    const url = "https://weather-flutter-app-rest-api.herokuapp.com";
+  Dio dio = new Dio();
+  var url = "https://weather-flutter-app-rest-api.herokuapp.com";
 
-    Future<void> postData(uname, uemail, pw) async {
-      var userDetails = {"username": uname, "password": pw};
-      print(userDetails);
-      try {
-        var postData = await dio.post('$url/users/signin', data: userDetails);
+  Future<void> postData(uname, uemail, pw) async {
+    var userDetails = {"username": uname, "password": pw};
+    print(userDetails);
+    try {
+      var postData = await dio.post('$url/users/signin', data: userDetails);
+      if (postData.statusCode == 200) {
         print(postData);
         Navigator.of(context).push(
           MaterialPageRoute(
@@ -36,12 +35,35 @@ class _SignInScreenState extends State<SignInScreen> {
           ),
         );
         //Navigator.of(context).pushNamed('/home');
-      } catch (e) {
-        print(e);
-        print("Invalid username or password!");
+        final snackBar = SnackBar(
+          content: const Text('User authenticated.'),
+          backgroundColor: (Colors.blue),
+          action: SnackBarAction(
+            label: 'dismiss',
+            onPressed: () {},
+            textColor: Colors.white,
+          ),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
+    } catch (e) {
+      print(e);
+      print("Invalid username or password!");
+      final snackBar = SnackBar(
+        content: const Text('Invalid username or password!'),
+        backgroundColor: (Colors.red),
+        action: SnackBarAction(
+          label: 'dismiss',
+          onPressed: () {},
+          textColor: Colors.white,
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color(0xFFe6e9f1),
         body: SafeArea(
