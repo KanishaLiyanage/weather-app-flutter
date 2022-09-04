@@ -55,6 +55,10 @@ class AlertBox extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
       // child: ListView.builder(
       //   itemBuilder: (ctx, index) {
       //     return AlertBox(
@@ -63,6 +67,3 @@ class AlertBox extends StatelessWidget {
       //   },
       //   itemCount: 6,
       // ),
-    );
-  }
-}
