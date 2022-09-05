@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      home: LandingScreen(),
+      home: const LandingScreen(),
       routes: {
         '/signin': (context) => const SignInScreen(),
         '/signup': (context) => const SignUpScreen(),
