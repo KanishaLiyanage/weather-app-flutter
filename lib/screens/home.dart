@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
+import '../services/location.dart';
 import '../screens/landingScreen.dart';
 import '../widgets/weatherCard.dart';
 import '../widgets/alertBox.dart';
@@ -28,15 +29,32 @@ class _HomeScreenState extends State<HomeScreen> {
   String dayTime = "";
   String temp = "";
   String condition = "";
+  double lat = 0.0;
+  double lon = 0.0;
 
   final url = "https://weather-flutter-app-rest-api.herokuapp.com";
 
   Dio dio = Dio();
 
-  Future<void> getData() async {
+  Future<void> getLocation() async {
+    Location location = Location();
+    await location.getCurrentLocation();
+    lat = location.latitude;
+    lon = location.longitude;
+    print(lat);
+    print(lon);
+
+    getData(lat, lon);
+  }
+
+  Future<void> getData(lat, lon) async {
+    var coordinates = {"latitude": lat, "longitude": lon};
     try {
-      var response = await dio.get('$url/user/home/weatherdata');
+      var response =
+          await dio.post('$url/user/home/weatherdata', data: coordinates);
+      //var response = await dio.get('$url/user/home/weatherdata');
       print(response.data);
+
       if (response.statusCode == 200) {
         setState(() {
           city = response.data['city'];
@@ -112,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getData();
+    getLocation();
   }
 
   @override
@@ -148,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             AlertBox(weatherCondition: condition),
             ElevatedButton(
-              onPressed: getData,
+              onPressed: getLocation,
               child: const Text("Refresh"),
               style: ElevatedButton.styleFrom(
                 primary: Colors.red, // Background color
