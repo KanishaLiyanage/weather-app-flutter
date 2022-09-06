@@ -18,7 +18,8 @@ class AlertBox extends StatelessWidget {
       condition = "Clouds with gaps that you can see blue sky between.";
     } else if (weatherCondition == "few clouds") {
       condition = "Sunny weather but okay.";
-    } else if (weatherCondition == "scattered clouds") {
+    } else if (weatherCondition == "scattered clouds" ||
+        weatherCondition == "overcast clouds") {
       condition = "Good climate to go outside & take a walk.";
     } else if (weatherCondition == "shower rain") {
       condition = "A short period of rain, but It's good to take an Umbrella.";

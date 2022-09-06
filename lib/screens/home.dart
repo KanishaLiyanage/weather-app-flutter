@@ -43,10 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
           temp = response.data['temp'].toString();
           condition = response.data['desc'];
           dayTime = response.data['day'];
-          // print(city);
-          // print(temp);
-          // print(condition);
-          // print(dayTime);
           final snackBar = SnackBar(
             content: const Text('Weather updated!'),
             backgroundColor: (Colors.blue),
@@ -110,6 +106,13 @@ class _HomeScreenState extends State<HomeScreen> {
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
   }
 
   @override
