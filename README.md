@@ -49,7 +49,7 @@ samples, guidance on mobile development, and a full API reference.
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This app is giving latest Covid-19 information in Sri Lanka.
+This Flutter app shows real-time weather data.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
